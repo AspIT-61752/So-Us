@@ -33,15 +33,20 @@ namespace SoUs.Entity
         public int AddressId { get => addressId; set => addressId = value; }
 
         [Required]
+        [StringLength(256)]
         public string Street { get => street; set => street = value; }
 
+        // The full name of Bangkok is 187 characters long
         [Required]
+        [StringLength(256)]
         public string City { get => city; set => city = value; }
 
         [Required]
+        [StringLength(128)]
         public string State { get => state; set => state = value; }
 
         [Required]
+        [StringLength(32)]
         public int Zip { get => zip; set => zip = value; }
 
         #endregion

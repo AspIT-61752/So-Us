@@ -28,6 +28,7 @@ namespace SoUs.Entity
         public int DiagnosisId { get => diagnosisId; set => diagnosisId = value; }
 
         [Required]
+        [StringLength(128)]
         public string Name { get => name; set => name = value; }
 
         public string Description { get => description; set => description = value; }

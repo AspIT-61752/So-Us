@@ -29,6 +29,7 @@ namespace SoUs.Entity
         public int RoleId { get => roleId; set => roleId = value; }
 
         [Required]
+        [StringLength(32)]
         public string RoleName { get => roleName; set => roleName = value; }
 
         #endregion

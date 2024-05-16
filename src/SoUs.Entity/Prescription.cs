@@ -31,12 +31,14 @@ namespace SoUs.Entity
         public int PrescriptionId { get => prescriptionId; set => prescriptionId = value; }
 
         [Required]
+        [StringLength(64)]
         public string Name { get => name; set => name = value; }
 
         [Required]
         public int Dosage { get => dosage; set => dosage = value; }
 
         [Required]
+        [StringLength(8)]
         public string Unit { get => unit; set => unit = value; }
 
         #endregion

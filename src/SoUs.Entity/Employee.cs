@@ -40,6 +40,7 @@ namespace SoUs.Entity
         public ICollection<Role> Role { get => role; set => role = value; }
 
         [Required]
+        [StringLength(128)]
         public string Name { get => name; set => name = value; }
 
         [Required]

@@ -34,6 +34,7 @@ namespace SoUs.Entity
         public int EmployeeId { get => employeeId; set => employeeId = value; }
 
         [Required]
+        [StringLength(256)]
         public string Name { get => name; set => name = value; }
 
         [Required]
