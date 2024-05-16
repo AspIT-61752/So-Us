@@ -1,0 +1,16 @@
+01. Beboer
+0. SOSU-medarbejder
+0. Taskplanner
+0. Administrator
+0. Plejecenter
+0. System
+0. Opgave
+0. Opgaveliste
+0. Nummer
+0. Tidspunkt
+0. Adresse
+0. Navn
+0. Note
+0. Sygdom
+0. Skavank
+0. Delopgave
