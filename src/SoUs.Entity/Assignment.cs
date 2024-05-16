@@ -1,4 +1,6 @@
-﻿namespace SoUs.Entity
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SoUs.Entity
 {
     public class Assignment
     {
@@ -27,16 +29,29 @@
             Medicine = medicine;
         }
 
+        public Assignment() { }
+
         #endregion
 
         #region Properties
 
+        [Key]
         public int AssignmentId { get => assignmentId; set => assignmentId = value; }
+
+        [Required]
         public string Name { get => name; set => name = value; }
+
+        [Required]
         public DateTime TimeStart { get => timeStart; set => timeStart = value; }
+
+        [Required]
         public DateTime TimeEnd { get => timeEnd; set => timeEnd = value; }
+
         public Resident Resident { get => resident; set => resident = value; }
+
         public Employee Employee { get => employee; set => employee = value; }
+
+
         public Medicine Medicine { get => medicine; set => medicine = value; }
 
         #endregion

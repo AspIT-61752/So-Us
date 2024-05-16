@@ -1,4 +1,6 @@
-﻿namespace SoUs.Entity
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SoUs.Entity
 {
     public class Role
     {
@@ -23,7 +25,10 @@
 
         #region Properties
 
+        [Key]
         public int RoleId { get => roleId; set => roleId = value; }
+
+        [Required]
         public string RoleName { get => roleName; set => roleName = value; }
 
         #endregion

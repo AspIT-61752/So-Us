@@ -7,8 +7,8 @@
         private int residentId;
         private string name;
         private string roomNumber;
-        private List<Diagnosis> diagnosis;
-        private List<Prescription> prescriptions;
+        private ICollection<Diagnosis> diagnosis;
+        private ICollection<Prescription> prescriptions;
         private string notes;
 
         #endregion
@@ -25,6 +25,8 @@
             Notes = notes;
         }
 
+        public Resident() { }
+
         #endregion
 
         #region Properties
@@ -32,8 +34,8 @@
         public int ResidentId { get => residentId; set => residentId = value; }
         public string Name { get => name; set => name = value; }
         public string RoomNumber { get => roomNumber; set => roomNumber = value; }
-        public List<Diagnosis> Diagnosis { get => diagnosis; set => diagnosis = value; }
-        public List<Prescription> Prescriptions { get => prescriptions; set => prescriptions = value; }
+        public ICollection<Diagnosis> Diagnosis { get => diagnosis; set => diagnosis = value; }
+        public ICollection<Prescription> Prescriptions { get => prescriptions; set => prescriptions = value; }
         public string Notes { get => notes; set => notes = value; }
 
         #endregion

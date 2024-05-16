@@ -1,4 +1,6 @@
-﻿namespace SoUs.Entity
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SoUs.Entity
 {
     public class Address
     {
@@ -27,10 +29,19 @@
 
         #region Properties
 
+        [Key]
         public int AddressId { get => addressId; set => addressId = value; }
+
+        [Required]
         public string Street { get => street; set => street = value; }
+
+        [Required]
         public string City { get => city; set => city = value; }
+
+        [Required]
         public string State { get => state; set => state = value; }
+
+        [Required]
         public int Zip { get => zip; set => zip = value; }
 
         #endregion

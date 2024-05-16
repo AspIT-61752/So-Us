@@ -1,4 +1,6 @@
-﻿namespace SoUs.Entity
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SoUs.Entity
 {
     public class CareCenter
     {
@@ -7,7 +9,11 @@
         private int employeeId;
         private string name;
         private string address;
-        private List<Resident> residents;
+        private ICollection<Resident> residents;
+
+        #endregion
+
+        #region Constructors
 
         public CareCenter(int employeeId, string name, string address, List<Resident> residents)
         {
@@ -17,17 +23,23 @@
             Residents = residents;
         }
 
-        #endregion
+        // Parameterless constructor for EF Core
+        public CareCenter() { }
 
-        #region Constructors
         #endregion
 
         #region Properties
 
+        [Key]
         public int EmployeeId { get => employeeId; set => employeeId = value; }
+
+        [Required]
         public string Name { get => name; set => name = value; }
+
+        [Required]
         public string Address { get => address; set => address = value; }
-        public List<Resident> Residents { get => residents; set => residents = value; }
+
+        public ICollection<Resident> Residents { get => residents; set => residents = value; }
 
         #endregion
 

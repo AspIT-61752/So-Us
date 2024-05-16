@@ -1,12 +1,14 @@
-﻿namespace SoUs.Entity
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SoUs.Entity
 {
     public class Employee
     {
         #region Fields
 
         private int employeeId;
-        private List<Assignment> assignments;
-        private List<Role> role;
+        private ICollection<Assignment> assignments;
+        private ICollection<Role> role;
         private string name;
         private CareCenter careCenter;
 
@@ -22,15 +24,25 @@
             Name = name;
             CareCenter = careCenter;
         }
+        public Employee() { }
 
         #endregion
 
         #region Properties
 
+        [Key]
         public int EmployeeId { get => employeeId; set => employeeId = value; }
-        public List<Assignment> Assignments { get => assignments; set => assignments = value; }
-        public List<Role> Role { get => role; set => role = value; }
+
+
+        public ICollection<Assignment> Assignments { get => assignments; set => assignments = value; }
+
+        [Required]
+        public ICollection<Role> Role { get => role; set => role = value; }
+
+        [Required]
         public string Name { get => name; set => name = value; }
+
+        [Required]
         public CareCenter CareCenter { get => careCenter; set => careCenter = value; }
 
         #endregion

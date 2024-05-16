@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoUs.Api", "SoUs.Api\SoUs.Api.csproj", "{7FAC2E2D-60E4-4144-9F6B-4354E31BDB6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoUs.Context", "SoUs.Context\SoUs.Context.csproj", "{FE0E634C-80D4-4005-AF96-AEEC52A1D797}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoUs.DataAccess", "SoUs.Context\SoUs.DataAccess.csproj", "{FE0E634C-80D4-4005-AF96-AEEC52A1D797}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoUs.Entity", "SoUs.Entity\SoUs.Entity.csproj", "{BC757C1A-A6A5-46F2-85C8-07A60D4B588E}"
 EndProject
