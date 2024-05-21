@@ -12,7 +12,7 @@ using SoUs.DataAccess;
 namespace SoUs.DataAccess.Migrations
 {
     [DbContext(typeof(SoUsDbDataAccess))]
-    [Migration("20240516122052_Initial")]
+    [Migration("20240516125543_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -99,11 +99,13 @@ namespace SoUs.DataAccess.Migrations
             modelBuilder.Entity("SoUs.Entity.CareCenter", b =>
                 {
                     b.Property<int>("EmployeeId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"));
+
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -111,6 +113,8 @@ namespace SoUs.DataAccess.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("EmployeeId");
+
+                    b.HasIndex("AddressId");
 
                     b.ToTable("CareCenter");
                 });
@@ -150,12 +154,17 @@ namespace SoUs.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"));
 
+                    b.Property<int>("CareCenterEmployeeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
                     b.HasKey("EmployeeId");
+
+                    b.HasIndex("CareCenterEmployeeId");
 
                     b.ToTable("Employee");
                 });
@@ -304,11 +313,13 @@ namespace SoUs.DataAccess.Migrations
 
             modelBuilder.Entity("SoUs.Entity.CareCenter", b =>
                 {
-                    b.HasOne("SoUs.Entity.Employee", null)
-                        .WithOne("CareCenter")
-                        .HasForeignKey("SoUs.Entity.CareCenter", "EmployeeId")
+                    b.HasOne("SoUs.Entity.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("SoUs.Entity.Diagnosis", b =>
@@ -316,6 +327,17 @@ namespace SoUs.DataAccess.Migrations
                     b.HasOne("SoUs.Entity.Resident", null)
                         .WithMany("Diagnosis")
                         .HasForeignKey("ResidentId");
+                });
+
+            modelBuilder.Entity("SoUs.Entity.Employee", b =>
+                {
+                    b.HasOne("SoUs.Entity.CareCenter", "CareCenter")
+                        .WithMany()
+                        .HasForeignKey("CareCenterEmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CareCenter");
                 });
 
             modelBuilder.Entity("SoUs.Entity.Prescription", b =>
@@ -347,9 +369,6 @@ namespace SoUs.DataAccess.Migrations
             modelBuilder.Entity("SoUs.Entity.Employee", b =>
                 {
                     b.Navigation("Assignments");
-
-                    b.Navigation("CareCenter")
-                        .IsRequired();
 
                     b.Navigation("Role");
                 });

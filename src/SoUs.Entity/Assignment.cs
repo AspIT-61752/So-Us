@@ -52,7 +52,6 @@ namespace SoUs.Entity
 
         public Employee Employee { get => employee; set => employee = value; }
 
-
         public Medicine Medicine { get => medicine; set => medicine = value; }
 
         #endregion

@@ -28,15 +28,15 @@ namespace SoUs.DataAccess
 
         #region Properties
 
-        public DbSet<Address> Address { get; set; }
-        public DbSet<Assignment> Assignment { get; set; }
-        public DbSet<CareCenter> CareCenter { get; set; }
-        public DbSet<Diagnosis> Diagnosis { get; set; }
-        public DbSet<Employee> Employee { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Assignment> Assignments { get; set; }
+        public DbSet<CareCenter> CareCenters { get; set; }
+        public DbSet<Diagnosis> Diagnoses { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         public DbSet<Medicine> Medicine { get; set; }
-        public DbSet<Prescription> Prescription { get; set; }
-        public DbSet<Resident> Resident { get; set; }
-        public DbSet<Role> role { get; set; }
+        public DbSet<Prescription> Prescriptions { get; set; }
+        public DbSet<Resident> Residents { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         #endregion
 

@@ -25,6 +25,8 @@ namespace SoUs.Entity
             Zip = zip;
         }
 
+        public Address() { } // Parameterless constructor for EF Core
+
         #endregion
 
         #region Properties

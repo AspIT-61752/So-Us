@@ -8,14 +8,14 @@ namespace SoUs.Entity
 
         private int employeeId;
         private string name;
-        private string address;
+        private Address address;
         private ICollection<Resident> residents;
 
         #endregion
 
         #region Constructors
 
-        public CareCenter(int employeeId, string name, string address, List<Resident> residents)
+        public CareCenter(int employeeId, string name, Address address, List<Resident> residents)
         {
             EmployeeId = employeeId;
             Name = name;
@@ -38,7 +38,7 @@ namespace SoUs.Entity
         public string Name { get => name; set => name = value; }
 
         [Required]
-        public string Address { get => address; set => address = value; }
+        public Address Address { get => address; set => address = value; }
 
         public ICollection<Resident> Residents { get => residents; set => residents = value; }
 
