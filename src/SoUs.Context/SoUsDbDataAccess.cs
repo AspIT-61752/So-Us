@@ -20,6 +20,11 @@ namespace SoUs.DataAccess
         {
         }
 
+        public SoUsDbDataAccess()
+        {
+
+        }
+
         //public SoUsDbContext(DbContextOptions<SoUsDbContext> options) : base(options)
         //{
         //}

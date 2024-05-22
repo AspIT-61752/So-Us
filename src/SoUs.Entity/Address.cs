@@ -31,6 +31,9 @@ namespace SoUs.Entity
 
         #region Properties
 
+        // Fluent API. Don't pollute the 
+        // Ask AI how to get this "From Data annotations to fluent API".
+
         [Key]
         public int AddressId { get => addressId; set => addressId = value; }
 
