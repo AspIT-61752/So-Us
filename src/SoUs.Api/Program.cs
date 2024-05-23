@@ -15,6 +15,8 @@ builder.Services.AddDbContext<SoUsDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddScoped<IAssignmentRepository, AssignmentRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
