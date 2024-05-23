@@ -16,7 +16,7 @@ namespace SoUs.DataAccess
 
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(connectionString);
+                //optionsBuilder.UseSqlServer(connectionString);
             }
         }
 
