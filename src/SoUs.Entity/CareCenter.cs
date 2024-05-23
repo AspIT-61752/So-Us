@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SoUs.Entity
+﻿namespace SoUs.Entity
 {
     public class CareCenter
     {
         #region Fields
 
+        private int careCenterId;
         private int employeeId;
         private string name;
         private Address address;
@@ -15,8 +14,9 @@ namespace SoUs.Entity
 
         #region Constructors
 
-        public CareCenter(int employeeId, string name, Address address, List<Resident> residents)
+        public CareCenter(int careCenterId, int employeeId, string name, Address address, List<Resident> residents)
         {
+            CareCenterId = careCenterId;
             EmployeeId = employeeId;
             Name = name;
             Address = address;
@@ -30,14 +30,16 @@ namespace SoUs.Entity
 
         #region Properties
 
-        [Key]
+        //[Key]
+        public int CareCenterId { get => careCenterId; set => careCenterId = value; }
+
         public int EmployeeId { get => employeeId; set => employeeId = value; }
 
-        [Required]
-        [StringLength(256)]
+        //[Required]
+        //[StringLength(256)]
         public string Name { get => name; set => name = value; }
 
-        [Required]
+        //[Required]
         public Address Address { get => address; set => address = value; }
 
         public ICollection<Resident> Residents { get => residents; set => residents = value; }

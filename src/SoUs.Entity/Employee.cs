@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SoUs.Entity
+﻿namespace SoUs.Entity
 {
     public class Employee
     {
@@ -8,7 +6,7 @@ namespace SoUs.Entity
 
         private int employeeId;
         private ICollection<Assignment> assignments;
-        private ICollection<Role> role;
+        private List<Role> role;
         private string name;
         private CareCenter careCenter;
 
@@ -30,20 +28,20 @@ namespace SoUs.Entity
 
         #region Properties
 
-        [Key]
+        //[Key]
         public int EmployeeId { get => employeeId; set => employeeId = value; }
 
 
         public ICollection<Assignment> Assignments { get => assignments; set => assignments = value; }
 
-        [Required]
-        public ICollection<Role> Role { get => role; set => role = value; }
+        //[Required]
+        public List<Role> Role { get => role; set => role = value; }
 
-        [Required]
-        [StringLength(128)]
+        //[Required]
+        //[StringLength(128)]
         public string Name { get => name; set => name = value; }
 
-        [Required]
+        //[Required]
         public CareCenter CareCenter { get => careCenter; set => careCenter = value; }
 
         #endregion

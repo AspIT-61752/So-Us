@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SoUs.Entity
+﻿namespace SoUs.Entity
 {
     public class Medicine
     {
@@ -29,21 +27,21 @@ namespace SoUs.Entity
 
         #region Properties
 
-        [Key]
+        //[Key]
         public int MedicineId { get => medicineId; set => medicineId = value; }
 
-        [Required]
-        [StringLength(64)]
+        //[Required]
+        //[StringLength(64)]
         public string Name { get => name; set => name = value; }
 
-        [Required]
+        //[Required]
         public int Dosage { get => dosage; set => dosage = value; }
 
-        [Required]
-        [StringLength(8)]
+        //[Required]
+        //[StringLength(8)]
         public string Unit { get => unit; set => unit = value; }
 
-        [Required]
+        //[Required]
         public bool Administered { get => administered; set => administered = value; }
 
         #endregion

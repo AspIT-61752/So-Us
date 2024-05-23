@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SoUs.Entity
+﻿namespace SoUs.Entity
 {
     public class Diagnosis
     {
@@ -24,11 +22,11 @@ namespace SoUs.Entity
 
         #region Properties
 
-        [Key]
+        //[Key]
         public int DiagnosisId { get => diagnosisId; set => diagnosisId = value; }
 
-        [Required]
-        [StringLength(128)]
+        //[Required]
+        //[StringLength(128)]
         public string Name { get => name; set => name = value; }
 
         public string Description { get => description; set => description = value; }

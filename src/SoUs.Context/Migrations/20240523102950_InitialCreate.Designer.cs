@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoUs.DataAccess;
 
@@ -10,10 +11,12 @@ using SoUs.DataAccess;
 
 namespace SoUs.DataAccess.Migrations
 {
-    [DbContext(typeof(SoUsDbDataAccess))]
-    partial class SoUsDbDataAccessModelSnapshot : ModelSnapshot
+    [DbContext(typeof(SoUsDbContext))]
+    [Migration("20240523102950_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,36 @@ namespace SoUs.DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("AssignmentEmployee", b =>
+                {
+                    b.Property<int>("AssignmentsAssignmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AssignmentsAssignmentId", "EmployeeId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("AssignmentEmployee");
+                });
+
+            modelBuilder.Entity("EmployeeRole", b =>
+                {
+                    b.Property<int>("EmployeesEmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EmployeesEmployeeId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("EmployeeRole");
+                });
 
             modelBuilder.Entity("SoUs.Entity.Address", b =>
                 {
@@ -32,21 +65,17 @@ namespace SoUs.DataAccess.Migrations
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("State")
                         .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Street")
                         .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Zip")
-                        .HasMaxLength(32)
                         .HasColumnType("int");
 
                     b.HasKey("AddressId");
@@ -62,16 +91,12 @@ namespace SoUs.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssignmentId"));
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MedicineId")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsComplete")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ResidentId")
                         .HasColumnType("int");
@@ -84,10 +109,6 @@ namespace SoUs.DataAccess.Migrations
 
                     b.HasKey("AssignmentId");
 
-                    b.HasIndex("EmployeeId");
-
-                    b.HasIndex("MedicineId");
-
                     b.HasIndex("ResidentId");
 
                     b.ToTable("Assignments");
@@ -95,23 +116,28 @@ namespace SoUs.DataAccess.Migrations
 
             modelBuilder.Entity("SoUs.Entity.CareCenter", b =>
                 {
-                    b.Property<int>("EmployeeId")
+                    b.Property<int>("CareCenterId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CareCenterId"));
 
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("EmployeeId");
+                    b.HasKey("CareCenterId");
 
                     b.HasIndex("AddressId");
+
+                    b.HasIndex("EmployeeId")
+                        .IsUnique();
 
                     b.ToTable("CareCenters");
                 });
@@ -130,8 +156,7 @@ namespace SoUs.DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ResidentId")
                         .HasColumnType("int");
@@ -151,17 +176,11 @@ namespace SoUs.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"));
 
-                    b.Property<int>("CareCenterEmployeeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("EmployeeId");
-
-                    b.HasIndex("CareCenterEmployeeId");
 
                     b.ToTable("Employees");
                 });
@@ -177,20 +196,23 @@ namespace SoUs.DataAccess.Migrations
                     b.Property<bool>("Administered")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("AssignmentId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Dosage")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Unit")
                         .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MedicineId");
+
+                    b.HasIndex("AssignmentId");
 
                     b.ToTable("Medicine");
                 });
@@ -208,16 +230,14 @@ namespace SoUs.DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ResidentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Unit")
                         .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PrescriptionId");
 
@@ -234,13 +254,12 @@ namespace SoUs.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResidentId"));
 
-                    b.Property<int?>("CareCenterEmployeeId")
+                    b.Property<int?>("CareCenterId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Notes")
                         .IsRequired()
@@ -248,12 +267,11 @@ namespace SoUs.DataAccess.Migrations
 
                     b.Property<string>("RoomNumber")
                         .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ResidentId");
 
-                    b.HasIndex("CareCenterEmployeeId");
+                    b.HasIndex("CareCenterId");
 
                     b.ToTable("Residents");
                 });
@@ -266,44 +284,52 @@ namespace SoUs.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
 
-                    b.Property<int?>("EmployeeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("RoleName")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RoleId");
-
-                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("SoUs.Entity.Assignment", b =>
+            modelBuilder.Entity("AssignmentEmployee", b =>
                 {
-                    b.HasOne("SoUs.Entity.Employee", "Employee")
-                        .WithMany("Assignments")
+                    b.HasOne("SoUs.Entity.Assignment", null)
+                        .WithMany()
+                        .HasForeignKey("AssignmentsAssignmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SoUs.Entity.Employee", null)
+                        .WithMany()
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
-                    b.HasOne("SoUs.Entity.Medicine", "Medicine")
+            modelBuilder.Entity("EmployeeRole", b =>
+                {
+                    b.HasOne("SoUs.Entity.Employee", null)
                         .WithMany()
-                        .HasForeignKey("MedicineId")
+                        .HasForeignKey("EmployeesEmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SoUs.Entity.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SoUs.Entity.Assignment", b =>
+                {
                     b.HasOne("SoUs.Entity.Resident", "Resident")
                         .WithMany()
                         .HasForeignKey("ResidentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Employee");
-
-                    b.Navigation("Medicine");
 
                     b.Navigation("Resident");
                 });
@@ -313,6 +339,12 @@ namespace SoUs.DataAccess.Migrations
                     b.HasOne("SoUs.Entity.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SoUs.Entity.Employee", null)
+                        .WithOne("CareCenter")
+                        .HasForeignKey("SoUs.Entity.CareCenter", "EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -326,15 +358,11 @@ namespace SoUs.DataAccess.Migrations
                         .HasForeignKey("ResidentId");
                 });
 
-            modelBuilder.Entity("SoUs.Entity.Employee", b =>
+            modelBuilder.Entity("SoUs.Entity.Medicine", b =>
                 {
-                    b.HasOne("SoUs.Entity.CareCenter", "CareCenter")
-                        .WithMany()
-                        .HasForeignKey("CareCenterEmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CareCenter");
+                    b.HasOne("SoUs.Entity.Assignment", null)
+                        .WithMany("Medicine")
+                        .HasForeignKey("AssignmentId");
                 });
 
             modelBuilder.Entity("SoUs.Entity.Prescription", b =>
@@ -348,14 +376,12 @@ namespace SoUs.DataAccess.Migrations
                 {
                     b.HasOne("SoUs.Entity.CareCenter", null)
                         .WithMany("Residents")
-                        .HasForeignKey("CareCenterEmployeeId");
+                        .HasForeignKey("CareCenterId");
                 });
 
-            modelBuilder.Entity("SoUs.Entity.Role", b =>
+            modelBuilder.Entity("SoUs.Entity.Assignment", b =>
                 {
-                    b.HasOne("SoUs.Entity.Employee", null)
-                        .WithMany("Role")
-                        .HasForeignKey("EmployeeId");
+                    b.Navigation("Medicine");
                 });
 
             modelBuilder.Entity("SoUs.Entity.CareCenter", b =>
@@ -365,9 +391,8 @@ namespace SoUs.DataAccess.Migrations
 
             modelBuilder.Entity("SoUs.Entity.Employee", b =>
                 {
-                    b.Navigation("Assignments");
-
-                    b.Navigation("Role");
+                    b.Navigation("CareCenter")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SoUs.Entity.Resident", b =>

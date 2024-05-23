@@ -23,7 +23,7 @@ namespace SoUs.Api.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<CareCenter> Get()
         {
-            SoUsDbDataAccess dataAccess = new SoUsDbDataAccess();
+            SoUsDbContext dataAccess = new SoUsDbContext();
             List<CareCenter> careCenters = dataAccess.CareCenters.ToList();
             return careCenters;
 

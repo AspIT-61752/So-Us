@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SoUs.Entity
+﻿namespace SoUs.Entity
 {
     public class Resident
     {
@@ -33,15 +31,15 @@ namespace SoUs.Entity
 
         #region Properties
 
-        [Key]
+        //[Key]
         public int ResidentId { get => residentId; set => residentId = value; }
 
-        [Required]
-        [StringLength(128)]
+        //[Required]
+        //[StringLength(128)]
         public string Name { get => name; set => name = value; }
 
-        [Required]
-        [StringLength(16)]
+        //[Required]
+        //[StringLength(16)]
         public string RoomNumber { get => roomNumber; set => roomNumber = value; }
         public ICollection<Diagnosis> Diagnosis { get => diagnosis; set => diagnosis = value; }
         public ICollection<Prescription> Prescriptions { get => prescriptions; set => prescriptions = value; }
