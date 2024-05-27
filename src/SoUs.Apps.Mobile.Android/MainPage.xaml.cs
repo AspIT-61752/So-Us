@@ -20,6 +20,13 @@
 
             SemanticScreenReader.Announce(CounterBtn.Text);
         }
+
+        private void OnResetClicked(object sender, EventArgs e)
+        {
+            count = 0;
+            CounterBtn.Text = "Click me!";
+            SemanticScreenReader.Announce("Counter reset");
+        }
     }
 
 }

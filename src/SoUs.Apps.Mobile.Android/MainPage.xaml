@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:MonkeyFinder.Model"
              x:Class="SoUs.Apps.Mobile.Android.MainPage">
 
     <ScrollView>
@@ -30,6 +31,32 @@
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Fill" />
+
+            <Button
+                x:Name="ResetCounterButton"
+                Text="Reset Counter"
+                SemanticProperties.Hint="I'll add something later"
+                Clicked="OnResetClicked"
+                HorizontalOptions="Fill" />
+
+            <CollectionView>
+                <CollectionView.ItemsSource>
+                    <x:Array Type="{x:Type model:Monkey}">
+                        <model:Monkey Name="Baboon"/>
+                        <model:Monkey Name="Capuchin Monkey"/>
+                        <model:Monkey Name="Red-shanked douc"/>
+                    </x:Array>
+                </CollectionView.ItemsSource>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="6">
+                            <Label Text="{Binding Name}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
         </VerticalStackLayout>
     </ScrollView>
 
