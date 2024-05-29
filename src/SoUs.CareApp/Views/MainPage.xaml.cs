@@ -1,4 +1,4 @@
-﻿namespace SoUs.CareApp
+﻿namespace SoUs.CareApp.Views
 {
     public partial class MainPage : ContentPage
     {
