@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoUs.Apps.Mobile.Android", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoUs.ViewModel", "SoUs.ViewModel\SoUs.ViewModel.csproj", "{6789E959-0125-4A49-AB21-8347D885C29D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoUs.CareApp", "SoUs.CareApp\SoUs.CareApp.csproj", "{110A834D-9DE0-4F46-A6FC-10F72CC234FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoUs.CareApp", "SoUs.CareApp\SoUs.CareApp.csproj", "{110A834D-9DE0-4F46-A6FC-10F72CC234FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoUs.Services", "SoUs.Services\SoUs.Services.csproj", "{4B22D2CF-F3DD-4E4D-BD09-F37F210B8C7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{110A834D-9DE0-4F46-A6FC-10F72CC234FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{110A834D-9DE0-4F46-A6FC-10F72CC234FE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{110A834D-9DE0-4F46-A6FC-10F72CC234FE}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{4B22D2CF-F3DD-4E4D-BD09-F37F210B8C7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B22D2CF-F3DD-4E4D-BD09-F37F210B8C7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B22D2CF-F3DD-4E4D-BD09-F37F210B8C7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B22D2CF-F3DD-4E4D-BD09-F37F210B8C7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

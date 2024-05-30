@@ -1,6 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             
+             xmlns:model="clr-namespace:SoUs.Entity;assembly=SoUs.Entity"
+             xmlns:converters="clr-namespace:SoUs.CareApp.Converters"
+             xmlns:viewModel="clr-namespace:SoUs.CareApp.ViewModels"
+             
+             x:DataType="viewModel:MainPageViewModel"
+             
              x:Class="SoUs.CareApp.Views.MainPage"
              Background="{StaticResource PrimaryLightBrush}">
 
@@ -23,7 +30,41 @@
                Grid.ColumnSpan="2"/>
 
         <CollectionView Grid.Row="1"
-                        Grid.Column="2">
+                        Grid.ColumnSpan="2"
+                        BackgroundColor="Red"
+                        ItemsSource="{Binding TodaysAssignments}">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Assignment">
+                    <Grid Padding="8">
+                        <Frame BackgroundColor="{StaticResource PrimaryLight}"
+                               HeightRequest="128">
+                            <Grid RowDefinitions="50, 200, 50">
+                                <Label Text="CN"
+                                       Grid.Row="0"
+                                       Grid.Column="0"/>
+                                <Label Grid.Row="0"
+                                       Grid.Column="1">
+                                    <Label.Text>
+                                        <MultiBinding Converter="{StaticResource TimeRangeConverter}">
+                                            <Binding Path="StartTime"/>
+                                            <Binding Path="EndTime"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                                <Label Text="Room Number"
+                                       Grid.Row="0"
+                                       Grid.Column="2"/>
+                                <Label Text="{Binding Resident.Name}"
+                                       Grid.Row="1"
+                                       Grid.Column="3"/>
+                                <CheckBox Grid.Row="2"
+                                          Grid.Column="2"/>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
             
         </CollectionView>
     </Grid>
