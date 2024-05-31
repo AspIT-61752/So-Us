@@ -33,7 +33,7 @@ namespace SoUs.DataAccess
             return p_sosuContext.Set<T>().ToList();
         }
 
-        public T GetBy(int id)
+        public virtual T GetBy(int id)
         {
             return p_sosuContext.Set<T>().Find(id);
         }
@@ -41,6 +41,7 @@ namespace SoUs.DataAccess
         public void Update(T entity)
         {
             p_sosuContext.Update(entity);
+            p_sosuContext.SaveChanges();
         }
     }
 }
