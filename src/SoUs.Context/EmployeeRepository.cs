@@ -1,9 +1,5 @@
-﻿using SoUs.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using SoUs.Entity;
 
 namespace SoUs.DataAccess
 {
@@ -11,7 +7,29 @@ namespace SoUs.DataAccess
     {
         public IEnumerable<Employee> GetEmployeesIn(Assignment assignment)
         {
-            return p_sosuContext.Employees.Where(e => e.Assignments.Contains(assignment)).ToList();
+            return p_sosuContext.Employees.Where(e => e.Assignments.Contains(assignment))
+                .ToList();
+        }
+
+        public Employee GetBy(int id)
+        {
+            return p_sosuContext.Employees.FirstOrDefault(e => e.EmployeeId == id);
+        }
+
+        public IEnumerable<Employee> GetBy(Role role)
+        {
+            return p_sosuContext.Employees.Where(e => e.Role.Contains(role))
+                .Include(e => e.Role)
+                .Include(e => e.CareCenter)
+                .ToList();
+        }
+
+        public IEnumerable<Employee> GetAll()
+        {
+            return p_sosuContext.Employees
+                .Include(e => e.Role)
+                .Include(e => e.CareCenter)
+                .ToList();
         }
     }
 }

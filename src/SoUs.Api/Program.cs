@@ -1,9 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using SoUs.DataAccess;
+using SoUs.Entity;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// https://localhost:7096 is the port of the API
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -16,6 +19,10 @@ builder.Services.AddDbContext<SoUsDbContext>(options =>
 });
 
 builder.Services.AddScoped<IAssignmentRepository, AssignmentRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IRepository<Role>, Repository<Role>>();
+
+builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
 var app = builder.Build();
 
