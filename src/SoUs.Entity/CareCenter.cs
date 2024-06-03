@@ -5,7 +5,6 @@
         #region Fields
 
         private int careCenterId;
-        private int employeeId;
         private string name;
         private Address address;
         private ICollection<Resident> residents;
@@ -14,10 +13,9 @@
 
         #region Constructors
 
-        public CareCenter(int careCenterId, int employeeId, string name, Address address, List<Resident> residents)
+        public CareCenter(int careCenterId, string name, Address address, List<Resident> residents)
         {
             CareCenterId = careCenterId;
-            EmployeeId = employeeId;
             Name = name;
             Address = address;
             Residents = residents;
@@ -32,8 +30,6 @@
 
         //[Key]
         public int CareCenterId { get => careCenterId; set => careCenterId = value; }
-
-        public int EmployeeId { get => employeeId; set => employeeId = value; }
 
         //[Required]
         //[StringLength(256)]
