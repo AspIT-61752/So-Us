@@ -35,7 +35,7 @@
         public ICollection<Assignment> Assignments { get => assignments; set => assignments = value; }
 
         //[Required]
-        public List<Role> Role { get => role; set => role = value; }
+        public List<Role>? Role { get => role; set => role = value; }
 
         //[Required]
         //[StringLength(128)]

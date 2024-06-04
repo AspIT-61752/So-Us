@@ -32,7 +32,7 @@
         //[Required]
         //[StringLength(32)]
         public string RoleName { get => roleName; set => roleName = value; }
-        public List<Employee> Employees { get => employees; set => employees = value; }
+        public List<Employee>? Employees { get => employees; set => employees = value; }
 
         #endregion
 
