@@ -1,5 +1,4 @@
-﻿
-namespace SoUs.DataAccess
+﻿namespace SoUs.DataAccess
 {
     public class Repository<T> : IRepository<T> where T : class
     {
