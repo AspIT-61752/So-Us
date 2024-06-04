@@ -23,6 +23,13 @@ namespace SoUs.Api.Controllers
             repo.Delete(address);
         }
 
+        [HttpDelete]
+        [Route(nameof(DeleteAddressBy))]
+        public void DeleteAddressBy([FromQuery] int id)
+        {
+            repo.DeleteBy(id);
+        }
+
         [HttpGet]
         [Route("GetById")]
         public ActionResult<Address> GetAddressBy([FromQuery] int id)

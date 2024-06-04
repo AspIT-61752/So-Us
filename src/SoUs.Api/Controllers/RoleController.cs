@@ -44,6 +44,13 @@ namespace SoUs.Api.Controllers
             return repo.GetBy(name);
         }
 
+        [HttpGet]
+        [Route("GetAll")]
+        public IEnumerable<Role> GetAll()
+        {
+            return repo.GetAll();
+        }
+
         [HttpPut]
         public void UpdateRoleBy([FromQuery] Role role)
         {
