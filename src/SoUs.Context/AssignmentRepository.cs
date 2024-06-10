@@ -5,19 +5,43 @@ namespace SoUs.DataAccess
 {
     public class AssignmentRepository(SoUsDbContext sosuContext) : Repository<Assignment>(sosuContext), IAssignmentRepository
     {
-        public IEnumerable<Assignment> GetAssignmentsFor(Employee employee)
+        public void AddEmployeeToTask(int assignmentId, int employeeId)
         {
-            return p_sosuContext.Assignments.Where(a => a.Employee.Contains(employee)).ToList();
+            Assignment assignment = p_sosuContext.Assignments
+                .FirstOrDefault(a => a.AssignmentId == assignmentId);
+
+            Employee employee = p_sosuContext.Employees.FirstOrDefault(e => e.EmployeeId == employeeId);
+
+            assignment.Employees.Add(employee);
+
+            p_sosuContext.SaveChanges();
         }
 
-        public IEnumerable<Assignment> GetAssignmentsOn(DateTime date)
+        public IEnumerable<Assignment> GetAssignmentsFor(Employee employee)
         {
-            return p_sosuContext.Assignments.Where(a => a.TimeStart.Date == date.Date).ToList();
+            List<Assignment> assignments = p_sosuContext.Assignments
+                .Where(a => a.Employees.Contains(employee))
+                .Include(a => a.Resident)
+                .Include(a => a.Employees)
+                .ToList();
+
+            return assignments;
+        }
+
+        public IEnumerable<Assignment> GetAssignmentsOn(Employee employee, DateTime date)
+        {
+            List<Assignment> assignments = p_sosuContext.Assignments
+                .Where(a => a.TimeStart.Date == date.Date && a.Employees.Contains(employee))
+                .Include(a => a.Resident)
+                .Include(a => a.Employees)
+                .ToList();
+
+            return assignments;
         }
 
         public override Assignment GetBy(int id)
         {
-            return p_sosuContext.Assignments.Include(a => a.Employee).FirstOrDefault(a => a.AssignmentId == id);
+            return p_sosuContext.Assignments.Include(a => a.Employees).FirstOrDefault(a => a.AssignmentId == id);
         }
     }
 }

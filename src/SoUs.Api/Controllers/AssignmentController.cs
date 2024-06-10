@@ -32,9 +32,9 @@ namespace SoUs.Api.Controllers
 
         [HttpGet]
         [Route("GetByDate")]
-        public IEnumerable<Assignment> GetAssignmentBy([FromQuery] DateTime date)
+        public IEnumerable<Assignment> GetAssignmentOn([FromQuery] Employee employee, [FromQuery] DateTime date)
         {
-            return repo.GetAssignmentsOn(date);
+            return repo.GetAssignmentsOn(employee, date);
         }
 
         [HttpGet]

@@ -67,6 +67,12 @@
             </CollectionView.ItemTemplate>
             
         </CollectionView>
+        <ActivityIndicator IsVisible="{Binding IsBusy}"
+                           IsEnabled="{Binding IsBusy}"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="CenterAndExpand"
+                           Grid.RowSpan="3"
+                           Grid.ColumnSpan="2"/>
     </Grid>
 
 </ContentPage>

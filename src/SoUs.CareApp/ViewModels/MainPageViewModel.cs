@@ -10,13 +10,14 @@ namespace SoUs.CareApp.ViewModels
 
         private readonly ISosuService sosuService;
 
+
         public ObservableCollection<Assignment> TodaysAssignments { get; } = new();
 
         #endregion
 
         #region Constructors
 
-        public MainPageViewModel(ISosuService sosuService)
+        public MainPageViewModel(ISosuService sosuService, IUserService userService)
         {
             Title = "SoUs Care App";
             this.sosuService = sosuService;

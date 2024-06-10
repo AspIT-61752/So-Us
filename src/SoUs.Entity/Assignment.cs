@@ -9,7 +9,7 @@
         private DateTime timeStart;
         private DateTime timeEnd;
         private Resident resident;
-        private List<Employee> employee;
+        private List<Employee> employees;
         private List<Medicine> medicine;
         private bool isComplete;
 
@@ -24,7 +24,7 @@
             TimeStart = timeStart;
             TimeEnd = timeEnd;
             Resident = resident;
-            Employee = employee;
+            Employees = employee;
             Medicine = medicine;
             IsComplete = isComplete;
         }
@@ -50,7 +50,7 @@
 
         public Resident Resident { get => resident; set => resident = value; }
 
-        public List<Employee> Employee { get => employee; set => employee = value; }
+        public List<Employee> Employees { get => employees; set => employees = value; }
 
         public List<Medicine> Medicine { get => medicine; set => medicine = value; }
 

@@ -20,10 +20,10 @@ namespace SoUs.Services
 
         protected ApiBase(string uri) : this(new Uri(uri)) { }
 
-        protected virtual async Task<HttpResponseMessage> GetHttpAsync(string url)
+        protected virtual async Task<HttpResponseMessage> GetHttpAsync(string url, int EmployeeId, DateTime date)
         {
-            // Build URI to ensure it is correct
-            Uri uri = new("");
+            UriBuilder uriBuilder = new UriBuilder(baseUri + url);
+            uriBuilder.Query = $"EmployeeId="
 
             // Call API
             using HttpClient client = new HttpClient();
@@ -44,7 +44,7 @@ namespace SoUs.Services
 
         public async Task<List<Assignment>> GetAssignmentsForAsync(DateTime date, Employee employee)
         {
-            string url = "";
+            string url = @"Assignment/GetAssignmentsOn";
             var response = await GetHttpAsync(url);
             var result = response.Content.ReadFromJsonAsAsyncEnumerable<Assignment>();
             List<Assignment> assignments = await result.ToListAsync();
@@ -55,5 +55,27 @@ namespace SoUs.Services
     public interface ISosuService
     {
         Task<List<Assignment>> GetAssignmentsForAsync(DateTime date, Employee employee);
+    }
+
+    public interface IUserService
+    {
+        void SetUserId(int id);
+        int GetUserId();
+    }
+
+    // I could just use property, but I think having a method is better for this case
+    public class UserService : IUserService
+    {
+        private int userId;
+
+        public int GetUserId()
+        {
+            return userId;
+        }
+
+        public void SetUserId(int id)
+        {
+            userId = id;
+        }
     }
 }
