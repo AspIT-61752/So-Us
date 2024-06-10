@@ -23,7 +23,7 @@ namespace SoUs.Services
         protected virtual async Task<HttpResponseMessage> GetHttpAsync(string url, int EmployeeId, DateTime date)
         {
             UriBuilder uriBuilder = new UriBuilder(baseUri + url);
-            uriBuilder.Query = $"EmployeeId="
+            uriBuilder.Query = $"EmployeeId={EmployeeId}&date={date}";
 
             // Call API
             using HttpClient client = new HttpClient();
@@ -44,7 +44,7 @@ namespace SoUs.Services
 
         public async Task<List<Assignment>> GetAssignmentsForAsync(DateTime date, Employee employee)
         {
-            string url = @"Assignment/GetAssignmentsOn";
+            string url = @"Assignment/GetByDate";
             var response = await GetHttpAsync(url);
             var result = response.Content.ReadFromJsonAsAsyncEnumerable<Assignment>();
             List<Assignment> assignments = await result.ToListAsync();

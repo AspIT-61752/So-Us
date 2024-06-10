@@ -13,6 +13,7 @@ namespace SoUs.DataAccess
 
         public Employee GetBy(int id)
         {
+            // TODO: Fix this. I probaly have to remake the DB for Employees.
             return p_sosuContext.Employees.FirstOrDefault(e => e.EmployeeId == id);
         }
 
@@ -27,8 +28,9 @@ namespace SoUs.DataAccess
         public IEnumerable<Employee> GetAll()
         {
             return p_sosuContext.Employees
-                .Include(e => e.Role)
-                .Include(e => e.CareCenter)
+                // This doesn't work because my DB doesn't have a Role column or a CareCenter column. I will fix this later.
+                //.Include(e => e.Role)
+                //.Include(e => e.CareCenter)
                 .ToList();
         }
     }
