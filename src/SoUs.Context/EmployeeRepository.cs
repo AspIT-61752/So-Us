@@ -22,15 +22,16 @@ namespace SoUs.DataAccess
             return p_sosuContext.Employees.Where(e => e.Role.Contains(role))
                 .Include(e => e.Role)
                 .Include(e => e.CareCenter)
+                .Include(e => e.Assignments)
                 .ToList();
         }
 
         public IEnumerable<Employee> GetAll()
         {
             return p_sosuContext.Employees
-                // This doesn't work because my DB doesn't have a Role column or a CareCenter column. I will fix this later.
-                //.Include(e => e.Role)
-                //.Include(e => e.CareCenter)
+                .Include(e => e.Role)
+                .Include(e => e.CareCenter)
+                .Include(e => e.Assignments)
                 .ToList();
         }
     }
