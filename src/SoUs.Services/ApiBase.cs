@@ -26,8 +26,19 @@ namespace SoUs.Services
             uriBuilder.Query = $"EmployeeId={EmployeeId}&date={date}";
 
             // Call API
-            using HttpClient client = new HttpClient();
-            var response = await client.GetAsync(uri);
+            using HttpClientHandler handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+            };
+
+            using HttpClient client = new HttpClient(handler);
+            HttpResponseMessage response = await client.GetAsync(uriBuilder.Uri);
+
+            // Check if response is successful
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new HttpRequestException(response.ReasonPhrase);
+            }
 
             // Return response to caller
             return response;
@@ -45,7 +56,7 @@ namespace SoUs.Services
         public async Task<List<Assignment>> GetAssignmentsForAsync(DateTime date, Employee employee)
         {
             string url = @"Assignment/GetByDate";
-            var response = await GetHttpAsync(url);
+            var response = await GetHttpAsync(url, employee.EmployeeId, date);
             var result = response.Content.ReadFromJsonAsAsyncEnumerable<Assignment>();
             List<Assignment> assignments = await result.ToListAsync();
             return assignments;

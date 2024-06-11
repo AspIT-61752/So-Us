@@ -1,4 +1,6 @@
-﻿namespace SoUs.CareApp.Views
+﻿using SoUs.CareApp.ViewModels;
+
+namespace SoUs.CareApp.Views
 {
     public partial class MainPage : ContentPage
     {

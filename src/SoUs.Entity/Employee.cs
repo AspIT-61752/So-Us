@@ -6,7 +6,7 @@
 
         private int employeeId;
         private ICollection<Assignment> assignments;
-        private List<Role> role;
+        private ICollection<Role> role;
         private string name;
         private CareCenter careCenter;
 
@@ -35,7 +35,7 @@
         public ICollection<Assignment> Assignments { get => assignments; set => assignments = value; }
 
         //[Required]
-        public List<Role>? Role { get => role; set => role = value; }
+        public ICollection<Role>? Role { get => role; set => role = value; }
 
         //[Required]
         //[StringLength(128)]
