@@ -9,7 +9,9 @@
              x:DataType="viewModel:MainPageViewModel"
              
              x:Class="SoUs.CareApp.Views.MainPage"
-             Background="{StaticResource PrimaryLightBrush}">
+             Background="{StaticResource PrimaryLightBrush}"
+             
+             Shell.NavBarIsVisible="False">
 
     <Grid ColumnDefinitions="*, *"
           RowDefinitions="40, *, *"
@@ -31,7 +33,6 @@
 
         <CollectionView Grid.Row="1"
                         Grid.ColumnSpan="2"
-                        BackgroundColor="Red"
                         ItemsSource="{Binding TodaysAssignments}">
 
             <CollectionView.ItemTemplate>

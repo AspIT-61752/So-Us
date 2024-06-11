@@ -8,7 +8,8 @@
     Title="SoUs.CareApp">
 
     <ShellContent
-        Title="Home"
+        Shell.NavBarIsVisible="False"
+        Title="Main"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 

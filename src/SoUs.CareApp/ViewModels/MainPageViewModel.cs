@@ -12,7 +12,7 @@ namespace SoUs.CareApp.ViewModels
         private readonly ISosuService sosuService;
         private readonly IUserService userService;
 
-        public ObservableCollection<Assignment> TodaysAssignments { get; } = new();
+        public ObservableCollection<Assignment> TodaysAssignments { get; set; }
 
         #endregion
 
@@ -37,6 +37,9 @@ namespace SoUs.CareApp.ViewModels
 
                 // Clear the current list of assignments
                 TodaysAssignments.Clear();
+
+                userService.SetUserId(1);
+                Console.WriteLine($"UserID: {userService.GetUserId()}");
 
                 // Get the assignments for the current user on today's date and add them to the list of todays assignments
                 var assignments = await sosuService.GetAssignmentsForAsync(DateTime.Now, new Employee { EmployeeId = userService.GetUserId() });
