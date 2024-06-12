@@ -8,6 +8,7 @@ namespace SoUs.Services
         #region Fields
 
         protected Uri baseUri;
+        protected HttpClient client;
 
         #endregion
 
@@ -16,23 +17,32 @@ namespace SoUs.Services
         protected ApiBase(Uri apiUri)
         {
             baseUri = apiUri;
+            client = InitializeHttpClient();
         }
 
         protected ApiBase(string uri) : this(new Uri(uri)) { }
 
-        protected virtual async Task<HttpResponseMessage> GetHttpAsync(string url, int EmployeeId, DateTime date)
+        private HttpClient InitializeHttpClient()
         {
-            UriBuilder uriBuilder = new UriBuilder(baseUri + url);
-            uriBuilder.Query = $"EmployeeId={EmployeeId}&date={date}";
-
-            // Call API
-            using HttpClientHandler handler = new HttpClientHandler()
+            HttpClientHandler handler = new HttpClientHandler()
             {
                 ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
             };
 
-            using HttpClient client = new HttpClient(handler);
-            HttpResponseMessage response = await client.GetAsync(uriBuilder.Uri);
+            HttpClient client = new HttpClient(handler)
+            {
+                Timeout = TimeSpan.FromSeconds(10)
+            };
+
+            return client;
+        }
+
+        protected virtual async Task<HttpResponseMessage> GetHttpAsync(string url)
+        {
+            Uri requestUri = new Uri(baseUri, url);
+
+            // Call API
+            HttpResponseMessage response = await client.GetAsync(requestUri);
 
             // Check if response is successful
             if (!response.IsSuccessStatusCode)
@@ -55,11 +65,27 @@ namespace SoUs.Services
 
         public async Task<List<Assignment>> GetAssignmentsForAsync(DateTime date, Employee employee)
         {
-            string url = @"Assignment/GetByDate";
-            var response = await GetHttpAsync(url, employee.EmployeeId, date);
-            var result = response.Content.ReadFromJsonAsAsyncEnumerable<Assignment>();
-            List<Assignment> assignments = await result.ToListAsync();
-            return assignments;
+            try
+            {
+                List<Assignment> assignments = new List<Assignment>();
+
+                string url = @$"Assignment/GetByDate?EmployeeId={employee.EmployeeId}&date={date.ToString("yyyy-MM-dd")}";
+                
+                var response = await GetHttpAsync(url);
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new InvalidDataException("Could not get assignments from API");
+                }
+
+                assignments = await response.Content.ReadFromJsonAsync<List<Assignment>>();
+
+                return assignments;
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Could not get assignments from API", ex);
+            }
         }
     }
 

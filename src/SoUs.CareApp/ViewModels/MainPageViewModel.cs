@@ -24,28 +24,36 @@ namespace SoUs.CareApp.ViewModels
             this.sosuService = sosuService;
             TodaysAssignments = new ObservableCollection<Assignment>();
             this.userService = userService;
-            UpdateAssignments();
+            UpdateAssignmentsAsync();
         }
 
         [RelayCommand]
-        private async Task UpdateAssignments()
+        private async Task UpdateAssignmentsAsync()
         {
             try
             {
                 // Shows the user a loading spinner
                 IsBusy = true;
 
-                // Clear the current list of assignments
-                TodaysAssignments.Clear();
-
                 userService.SetUserId(1);
+
+                DateTime today = DateTime.Now;
+                //var assignments = await sosuService.GetAssignmentsForAsync(today, new Employee { EmployeeId = 1 });
+                var assignments = await sosuService.GetAssignmentsForAsync(today, new Employee { EmployeeId = userService.GetUserId() });
                 Console.WriteLine($"UserID: {userService.GetUserId()}");
 
                 // Get the assignments for the current user on today's date and add them to the list of todays assignments
-                var assignments = await sosuService.GetAssignmentsForAsync(DateTime.Now, new Employee { EmployeeId = userService.GetUserId() });
-                foreach (var assignment in assignments)
+                UpdateAssignments(assignments);
+
+                foreach (var item in assignments)
                 {
-                    TodaysAssignments.Add(assignment);
+                    Console.WriteLine(item);
+                }
+
+                if (TodaysAssignments.Count == 0)
+                {
+                    Console.WriteLine($"UserID: {userService.GetUserId()}");
+                    await Shell.Current.DisplayAlert("INFO", "No assignments today", "OK");
                 }
             }
             catch (Exception)
@@ -56,6 +64,15 @@ namespace SoUs.CareApp.ViewModels
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        private void UpdateAssignments(List<Assignment> assignments)
+        {
+            TodaysAssignments.Clear();
+            foreach (var assignment in assignments)
+            {
+                TodaysAssignments.Add(assignment);
             }
         }
 
