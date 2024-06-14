@@ -54,6 +54,10 @@ namespace SoUs.CareApp.ViewModels
                 {
                     Console.WriteLine($"UserID: {userService.GetUserId()}");
                     await Shell.Current.DisplayAlert("INFO", "No assignments today", "OK");
+                    Employee employee = new Employee { EmployeeId = 1, Name = "Mike" };
+                    List<Employee> employees = new();
+                    employees.Add(employee);
+                    TodaysAssignments.Add(new Assignment { AssignmentId = 0, Employees = employees, Name = "Giv medicin", Resident = new Resident { Name = "Tommas" }, TimeStart = DateTime.Now.AddMinutes(3), TimeEnd = DateTime.Now.AddMinutes(18), IsComplete = false });
                 }
             }
             catch (Exception)

@@ -13,16 +13,20 @@
         #endregion
 
         #region Constructors
+        public Employee()
+        {
+            Assignments = new List<Assignment>();
+            Role = new List<Role>();
+        }
 
         public Employee(int employeeId, List<Assignment> assignments, List<Role> role, string name, CareCenter careCenter)
         {
             EmployeeId = employeeId;
-            Assignments = assignments;
-            Role = role;
+            Assignments = assignments ?? new List<Assignment>();
+            Role = role ?? new List<Role>();
             Name = name;
             CareCenter = careCenter;
         }
-        public Employee() { }
 
         #endregion
 

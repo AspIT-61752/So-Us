@@ -13,16 +13,19 @@
 
         #region Constructors
 
+        // Parameterless constructor for EF Core
+        public CareCenter()
+        {
+            Residents = new List<Resident>();
+        }
+
         public CareCenter(int careCenterId, string name, Address address, List<Resident> residents)
         {
             CareCenterId = careCenterId;
             Name = name;
             Address = address;
-            Residents = residents;
+            Residents = residents ?? new List<Resident>();
         }
-
-        // Parameterless constructor for EF Core
-        public CareCenter() { }
 
         #endregion
 

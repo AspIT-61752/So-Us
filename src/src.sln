@@ -11,11 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoUs.Entity", "SoUs.Entity\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoUs.Apps.Mobile.Android", "SoUs.Apps.Mobile.Android\SoUs.Apps.Mobile.Android.csproj", "{CD23AD7D-B04C-4FCA-8691-C5B37F037162}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoUs.ViewModel", "SoUs.ViewModel\SoUs.ViewModel.csproj", "{6789E959-0125-4A49-AB21-8347D885C29D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoUs.CareApp", "SoUs.CareApp\SoUs.CareApp.csproj", "{110A834D-9DE0-4F46-A6FC-10F72CC234FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoUs.Services", "SoUs.Services\SoUs.Services.csproj", "{4B22D2CF-F3DD-4E4D-BD09-F37F210B8C7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoUs.Services", "SoUs.Services\SoUs.Services.csproj", "{4B22D2CF-F3DD-4E4D-BD09-F37F210B8C7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +39,6 @@ Global
 		{CD23AD7D-B04C-4FCA-8691-C5B37F037162}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD23AD7D-B04C-4FCA-8691-C5B37F037162}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CD23AD7D-B04C-4FCA-8691-C5B37F037162}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{6789E959-0125-4A49-AB21-8347D885C29D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6789E959-0125-4A49-AB21-8347D885C29D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6789E959-0125-4A49-AB21-8347D885C29D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6789E959-0125-4A49-AB21-8347D885C29D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{110A834D-9DE0-4F46-A6FC-10F72CC234FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{110A834D-9DE0-4F46-A6FC-10F72CC234FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{110A834D-9DE0-4F46-A6FC-10F72CC234FE}.Debug|Any CPU.Deploy.0 = Debug|Any CPU

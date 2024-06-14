@@ -17,6 +17,12 @@
 
         #region Constructors
 
+        public Assignment()
+        {
+            Employees = new List<Employee>();
+            Medicine = new List<Medicine>();
+        }
+
         public Assignment(int assignmentId, string name, DateTime timeStart, DateTime timeEnd, Resident resident, List<Employee> employee, List<Medicine> medicine, bool isComplete)
         {
             AssignmentId = assignmentId;
@@ -24,28 +30,21 @@
             TimeStart = timeStart;
             TimeEnd = timeEnd;
             Resident = resident;
-            Employees = employee;
-            Medicine = medicine;
+            Employees = employee ?? new List<Employee>();
+            Medicine = medicine ?? new List<Medicine>();
             IsComplete = isComplete;
         }
-
-        public Assignment() { }
 
         #endregion
 
         #region Properties
 
-        //[Key]
         public int AssignmentId { get => assignmentId; set => assignmentId = value; }
 
-        //[Required]
-        //[StringLength(32)]
         public string Name { get => name; set => name = value; }
 
-        //[Required]
         public DateTime TimeStart { get => timeStart; set => timeStart = value; }
 
-        //[Required]
         public DateTime TimeEnd { get => timeEnd; set => timeEnd = value; }
 
         public Resident Resident { get => resident; set => resident = value; }

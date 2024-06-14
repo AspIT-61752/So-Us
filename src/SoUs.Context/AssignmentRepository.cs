@@ -31,16 +31,26 @@ namespace SoUs.DataAccess
         public IEnumerable<Assignment> GetAssignmentsOn(Employee employee, DateTime date)
         {
             List<Assignment> assignments = p_sosuContext.Assignments
-                .Where(a => a.TimeStart.Date == date.Date && a.Employees.Contains(employee))
+                .Where(a => a.Employees.Any(e => e.EmployeeId == employee.EmployeeId) && a.TimeStart.Date.Date == date.Date)
                 .Include(a => a.Resident)
                 .Include(a => a.Employees)
                 .ToList();
+            //List<Assignment> assignments = p_sosuContext.Assignments
+            //    .Where(a => a.TimeStart.Date == date.Date && a.Employees.Contains(employee))
+            //    .Include(a => a.Resident)
+            //    .Include(a => a.Employees)
+            //    .ToList();
 
             return assignments;
         }
 
         public override Assignment GetBy(int id)
         {
+            Assignment assignment = p_sosuContext.Assignments
+                .Include(a => a.Employees)
+                .Include(a => a.Resident)
+                .Include(a => a.Medicine)
+                .FirstOrDefault(a => a.AssignmentId == id);
             return p_sosuContext.Assignments.Include(a => a.Employees).FirstOrDefault(a => a.AssignmentId == id);
         }
     }

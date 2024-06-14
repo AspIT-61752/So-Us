@@ -6,6 +6,8 @@ namespace SoUs.DataAccess
     {
         IEnumerable<Assignment> GetAssignmentsOn(Employee employee, DateTime date);
         IEnumerable<Assignment> GetAssignmentsFor(Employee employee);
+        //Assignment GetAssignmentById(int id);
         void AddEmployeeToTask(int assignmentId, int employeeId);
+
     }
 }

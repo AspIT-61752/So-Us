@@ -31,13 +31,56 @@
                Grid.Column="0"
                Grid.ColumnSpan="2"/>
 
-        <CollectionView Grid.Row="1"
+        <!--<ListView ItemsSource="{Binding TodaysAssignments}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="model:Assignment">
+                    <ViewCell>
+                        <Grid Padding="8">
+                            <Label Text="{Binding Name}"/>
+                            <Frame BackgroundColor="{StaticResource PrimaryLight}"
+                                   HeightRequest="128">
+                                <Grid RowDefinitions="50, 200, 50">
+                                    <Label Text="CN"
+                                           Grid.Row="0"
+                                           Grid.Column="0"/>
+                                    <Label Grid.Row="0"
+                                           Grid.Column="1">
+                                        <Label.Text>
+                                            <MultiBinding Converter="{StaticResource TimeRangeConverter}">
+                                                <Binding Path="StartTime"/>
+                                                <Binding Path="EndTime"/>
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                    <Label Text="Room Number"
+                                           Grid.Row="0"
+                                           Grid.Column="2"/>
+                                    <Label Text="{Binding Resident.Name}"
+                                           Grid.Row="1"
+                                           Grid.Column="3"/>
+                                    <CheckBox Grid.Row="2"
+                                              Grid.Column="2"/>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+            <ActivityIndicator IsVisible="{Binding IsBusy}"
+                           IsEnabled="{Binding IsBusy}"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="CenterAndExpand"
+                           Grid.RowSpan="3"
+                           Grid.ColumnSpan="2"/>-->
+            <CollectionView Grid.Row="1"
                         Grid.ColumnSpan="2"
                         ItemsSource="{Binding TodaysAssignments}">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Assignment">
                     <Grid Padding="8">
+                        <Label Text="{Binding Name}"/>
                         <Frame BackgroundColor="{StaticResource PrimaryLight}"
                                HeightRequest="128">
                             <Grid RowDefinitions="50, 200, 50">
@@ -73,7 +116,8 @@
                            HorizontalOptions="FillAndExpand"
                            VerticalOptions="CenterAndExpand"
                            Grid.RowSpan="3"
-                           Grid.ColumnSpan="2"/>
+                           Grid.ColumnSpan="2"
+                           Grid.Column="4"/>
     </Grid>
 
 </ContentPage>

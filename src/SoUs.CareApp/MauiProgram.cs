@@ -8,7 +8,8 @@ namespace SoUs.CareApp
     public static class MauiProgram
     {
 
-        private const string uriString = "https://localhost:7096/api/";
+        //private const string uriString = "https://localhost:7096/api/";
+        private const string uriString = "https://10.0.2.2:7096/api/";
 
         public static MauiApp CreateMauiApp()
         {
