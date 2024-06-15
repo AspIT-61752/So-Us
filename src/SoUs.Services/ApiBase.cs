@@ -100,7 +100,7 @@ namespace SoUs.Services
         int GetUserId();
     }
 
-    // I could just use property, but I think having a method is better for this case
+    // I could just use property, but I think having a method is better for this case 
     public class UserService : IUserService
     {
         private int userId;

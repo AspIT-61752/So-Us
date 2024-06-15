@@ -13,14 +13,14 @@
 
         #region Constructors
 
+        public Role() { }
+
         public Role(int roleId, string roleName, List<Employee> employees)
         {
             RoleId = roleId;
             RoleName = roleName;
             this.employees = employees;
         }
-
-        public Role() { }
 
         #endregion
 

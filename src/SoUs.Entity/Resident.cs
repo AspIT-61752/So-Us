@@ -15,17 +15,21 @@
 
         #region Constructors
 
+        public Resident()
+        {
+            Diagnosis = new List<Diagnosis>();
+            Prescriptions = new List<Prescription>();
+        }
+
         public Resident(int residentId, string name, string roomNumber, List<Diagnosis> diagnosis, List<Prescription> prescriptions, string notes)
         {
             ResidentId = residentId;
             Name = name;
             RoomNumber = roomNumber;
-            Diagnosis = diagnosis;
-            Prescriptions = prescriptions;
+            Diagnosis = diagnosis ?? new List<Diagnosis>();
+            Prescriptions = prescriptions ?? new List<Prescription>();
             Notes = notes;
         }
-
-        public Resident() { }
 
         #endregion
 
