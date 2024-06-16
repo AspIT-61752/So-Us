@@ -51,7 +51,10 @@ namespace SoUs.DataAccess
                 .Include(a => a.Resident)
                 .Include(a => a.Medicine)
                 .FirstOrDefault(a => a.AssignmentId == id);
-            return p_sosuContext.Assignments.Include(a => a.Employees).FirstOrDefault(a => a.AssignmentId == id);
+            return p_sosuContext.Assignments
+                .Include(a => a.Employees)
+                .Include(a => a.Resident)
+                .FirstOrDefault(a => a.AssignmentId == id);
         }
     }
 }
