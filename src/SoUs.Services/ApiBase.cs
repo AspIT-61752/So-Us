@@ -37,12 +37,13 @@ namespace SoUs.Services
             return client;
         }
 
+        // !TODO: I think it fails here, I have to figure out why
         protected virtual async Task<HttpResponseMessage> GetHttpAsync(string url)
         {
             Uri requestUri = new Uri(baseUri, url);
 
             // Call API
-            HttpResponseMessage response = await client.GetAsync(requestUri);
+            HttpResponseMessage response = await client.GetAsync(requestUri.ToString()); // IT FAILS HERE! I think... The app just continues here, but I'm not sure why. The status code is OK, but maybe the data is wrong?
 
             // Check if response is successful
             if (!response.IsSuccessStatusCode)
@@ -52,6 +53,23 @@ namespace SoUs.Services
 
             // Return response to caller
             return response;
+        }
+
+        protected virtual async Task<HttpResponseMessage> PutHttpAsync(string url, Assignment assignment)
+        {
+            Uri requestUri = new Uri(baseUri, url);
+
+            // Call API
+            HttpResponseMessage response = await client.PutAsJsonAsync(requestUri, assignment);
+
+            // Check if response is successful
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new HttpRequestException(response.ReasonPhrase);
+            }
+
+            // Return response to caller
+            return response; // I don't think this is necessary, but I'll leave it in for now
         }
 
         #endregion
@@ -67,8 +85,8 @@ namespace SoUs.Services
         {
             try
             {
-                List<Assignment> assignments = new List<Assignment>();
-
+                //List<Assignment> assignments = new List<Assignment>();
+                // TODO: Set breakpoint here. It fails here for some reason.
                 string url = @$"Assignment/GetByDate?EmployeeId={employee.EmployeeId}&date={date.ToString("yyyy-MM-dd")}";
                 
                 var response = await GetHttpAsync(url);
@@ -77,7 +95,11 @@ namespace SoUs.Services
                     throw new InvalidDataException("Could not get assignments from API");
                 }
 
-                assignments = await response.Content.ReadFromJsonAsync<List<Assignment>>();
+                //var assignments = await response.Content.ReadFromJsonAsync<List<Assignment>>(); // AI IS USELESS!
+
+                var res = response.Content.ReadFromJsonAsAsyncEnumerable<Assignment>(); // OMG I FORGOT TO GET THE DATA FROM THE RESPONSE!
+
+                List<Assignment> assignments = await res.ToListAsync(); // IT STILL WON'T WORK! I think it's because the data it's receiving is wrong, but I'm not sure why
 
                 return assignments;
             }
@@ -87,11 +109,24 @@ namespace SoUs.Services
                 throw new ApplicationException("Could not get assignments from API", ex);
             }
         }
+
+        public void UpdateAssignment(Assignment assignment)
+        {
+            try
+            {
+                PutHttpAsync("Assignment", assignment);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 
     public interface ISosuService
     {
         Task<List<Assignment>> GetAssignmentsForAsync(DateTime date, Employee employee);
+        void UpdateAssignment(Assignment assignment);
     }
 
     public interface IUserService

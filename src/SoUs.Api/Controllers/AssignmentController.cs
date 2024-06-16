@@ -54,8 +54,9 @@ namespace SoUs.Api.Controllers
 
         [HttpGet]
         [Route("GetAssignmentsFor")]
-        public IEnumerable<Assignment> GetAssignmentsFor([FromQuery] Employee employee)
+        public IEnumerable<Assignment> GetAssignmentsFor([FromQuery] int employeeId)
         {
+            Employee employee = new Employee { EmployeeId = employeeId };
             return repo.GetAssignmentsFor(employee);
         }
 

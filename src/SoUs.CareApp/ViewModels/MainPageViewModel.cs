@@ -10,7 +10,7 @@ namespace SoUs.CareApp.ViewModels
         #region Fields
 
         private readonly ISosuService sosuService;
-        private readonly IUserService userService;
+        private IUserService userService;
 
         public ObservableCollection<Assignment> TodaysAssignments { get; set; }
 
@@ -36,9 +36,12 @@ namespace SoUs.CareApp.ViewModels
                 IsBusy = true;
 
                 userService.SetUserId(1);
-
                 DateTime today = DateTime.Now;
+
+                TodaysAssignments.Clear();
+
                 //var assignments = await sosuService.GetAssignmentsForAsync(today, new Employee { EmployeeId = 1 });
+                // https://localhost:7096/api/Assignment/GetByDate?EmployeeId=1&date=2024-06-16 // It'll use 10.0.2.2 instead of localhost, but this is just so I can see what data it should get
                 var assignments = await sosuService.GetAssignmentsForAsync(today, new Employee { EmployeeId = userService.GetUserId() });
                 Console.WriteLine($"UserID: {userService.GetUserId()}");
 
@@ -73,7 +76,7 @@ namespace SoUs.CareApp.ViewModels
 
         private void UpdateAssignments(List<Assignment> assignments)
         {
-            TodaysAssignments.Clear();
+            //TodaysAssignments.Clear();
             foreach (var assignment in assignments)
             {
                 TodaysAssignments.Add(assignment);
