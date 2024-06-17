@@ -12,6 +12,11 @@
              Background="{StaticResource PrimaryLightBrush}"
              
              Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:TimeRangeConverter x:Key="TimeRangeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <Grid ColumnDefinitions="*, *"
           RowDefinitions="40, *, *"
@@ -79,7 +84,9 @@
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Assignment">
-                    <Grid Padding="8">
+                    <Grid Padding="8"
+                          ColumnDefinitions="4*, 8*, 4*"
+                          WidthRequest="700">
                         <Label Text="{Binding Name}"/>
                         <Frame BackgroundColor="{StaticResource PrimaryLight}"
                                HeightRequest="128">
@@ -91,8 +98,8 @@
                                        Grid.Column="1">
                                     <Label.Text>
                                         <MultiBinding Converter="{StaticResource TimeRangeConverter}">
-                                            <Binding Path="StartTime"/>
-                                            <Binding Path="EndTime"/>
+                                            <Binding Path="TimeStart" />
+                                            <Binding Path="TimeEnd" />
                                         </MultiBinding>
                                     </Label.Text>
                                 </Label>
