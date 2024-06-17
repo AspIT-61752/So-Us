@@ -19,7 +19,7 @@
     </ContentPage.Resources>
 
     <Grid ColumnDefinitions="*, *"
-          RowDefinitions="40, *, *"
+          RowDefinitions="40, 50, *"
           BackgroundColor="{StaticResource Primary}">
         <Button Text="Recepter"
                 Style="{StaticResource SoUsButton}"
@@ -32,6 +32,7 @@
         <Label Text="Dagens Opgaver"
                FontSize="Title"
                HorizontalTextAlignment="Center"
+               VerticalOptions="Center"
                Grid.Row="1"
                Grid.Column="0"
                Grid.ColumnSpan="2"/>
@@ -78,45 +79,54 @@
                            VerticalOptions="CenterAndExpand"
                            Grid.RowSpan="3"
                            Grid.ColumnSpan="2"/>-->
-            <CollectionView Grid.Row="1"
+        <CollectionView BackgroundColor="#79A9A6" VerticalOptions="FillAndExpand"
+                        Grid.Row="2"
+                        Grid.RowSpan="2"
                         Grid.ColumnSpan="2"
-                        ItemsSource="{Binding TodaysAssignments}">
+                        ItemsSource="{Binding TodaysAssignments}"
+                        >
+
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Assignment">
-                    <Grid Padding="8"
-                          ColumnDefinitions="4*, 8*, 4*"
-                          WidthRequest="700">
-                        <Label Text="{Binding Name}"/>
-                        <Frame BackgroundColor="{StaticResource PrimaryLight}"
-                               HeightRequest="128">
-                            <Grid RowDefinitions="50, 200, 50">
-                                <Label Text="CN"
-                                       Grid.Row="0"
-                                       Grid.Column="0"/>
-                                <Label Grid.Row="0"
-                                       Grid.Column="1">
-                                    <Label.Text>
-                                        <MultiBinding Converter="{StaticResource TimeRangeConverter}">
-                                            <Binding Path="TimeStart" />
-                                            <Binding Path="TimeEnd" />
-                                        </MultiBinding>
-                                    </Label.Text>
-                                </Label>
-                                <Label Text="Room Number"
-                                       Grid.Row="0"
-                                       Grid.Column="2"/>
-                                <Label Text="{Binding Resident.Name}"
-                                       Grid.Row="1"
-                                       Grid.Column="3"/>
-                                <CheckBox Grid.Row="2"
-                                          Grid.Column="2"/>
-                            </Grid>
-                        </Frame>
-                    </Grid>
+
+                    <VerticalStackLayout BackgroundColor="#79A9A6">
+                        <!-- Card goes here -->
+                        <Border WidthRequest="350" StrokeThickness="1" Margin="0,15" Stroke="Black">
+                            <VerticalStackLayout x:Name="TaskCard" BackgroundColor="#B5ECE7" >
+
+                                <Grid x:Name="TopRow" HorizontalOptions="FillAndExpand" ColumnDefinitions="*,*,*" Padding="5">
+                                    <Label Text="{Binding AssignmentId}" VerticalOptions="Start" FontAttributes="Bold" FontSize="17" FontFamily="Segoe UI"/>
+
+                                    <Label HorizontalOptions="Center" Grid.Column="1" FontAttributes="Bold" FontSize="17" FontFamily="Segoe UI">
+                                        <Label.Text>
+                                            <MultiBinding Converter="{StaticResource TimeRangeConverter}">
+                                                <Binding Path="TimeStart" />
+                                                <Binding Path="TimeEnd" />
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+
+                                    <Label Text="{Binding Resident.RoomNumber}" HorizontalTextAlignment="End" Grid.Column="2" Margin="0,0,10,0" FontAttributes="Bold" FontSize="17" FontFamily="Segoe UI"/>
+                                </Grid>
+
+                                <Border StrokeThickness="1" Stroke="Black"></Border>
+
+
+                                <Grid x:Name="BottomRow" ColumnDefinitions="*,*" HorizontalOptions="FillAndExpand" Padding="5,20">
+                                    <Label Text="{Binding Resident.Name}" FontAttributes="Bold" FontSize="Medium" FontFamily="Segoe UI"/>
+
+                                    <CheckBox  IsChecked="{Binding IsComplete}" IsEnabled="False" WidthRequest="30" HeightRequest="30" Grid.Column="1" HorizontalOptions="End"/>
+                                </Grid>
+
+
+                            </VerticalStackLayout>
+                        </Border>
+                    </VerticalStackLayout>
                 </DataTemplate>
+
             </CollectionView.ItemTemplate>
-            
+
         </CollectionView>
         <ActivityIndicator IsVisible="{Binding IsBusy}"
                            IsEnabled="{Binding IsBusy}"
