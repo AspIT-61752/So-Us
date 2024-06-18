@@ -94,8 +94,6 @@ namespace SoUs.Services
                     throw new InvalidDataException("Could not get assignments from API");
                 }
 
-                //var assignments = await response.Content.ReadFromJsonAsync<List<Assignment>>(); // AI IS USELESS!
-
                 var res = response.Content.ReadFromJsonAsAsyncEnumerable<Assignment>(); // OMG I FORGOT TO GET THE DATA FROM THE RESPONSE!
 
                 List<Assignment> assignments = await res.ToListAsync(); // IT STILL WON'T WORK! I think it's because the data it's receiving is wrong, but I'm not sure why
