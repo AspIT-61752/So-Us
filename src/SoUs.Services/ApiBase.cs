@@ -37,7 +37,6 @@ namespace SoUs.Services
             return client;
         }
 
-        // !TODO: I think it fails here, I have to figure out why
         protected virtual async Task<HttpResponseMessage> GetHttpAsync(string url)
         {
             Uri requestUri = new Uri(baseUri, url);
@@ -88,7 +87,7 @@ namespace SoUs.Services
                 //List<Assignment> assignments = new List<Assignment>();
                 // TODO: Set breakpoint here. It fails here for some reason.
                 string url = @$"Assignment/GetByDate?EmployeeId={employee.EmployeeId}&date={date.ToString("yyyy-MM-dd")}";
-                
+
                 var response = await GetHttpAsync(url);
                 if (!response.IsSuccessStatusCode)
                 {
